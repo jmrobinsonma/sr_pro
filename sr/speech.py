@@ -50,6 +50,22 @@ def wish_me():
 	assname =("Bee Sixty-nine Four-twenty")
 
 
+def flask_local(query: str):
+	
+	url = "127.0.0.1:5000"
+
+	if len(query) == 5:
+	 	webbrowser.open(url)
+	else:
+		print(len(query))
+		query.replace("slash", "/")
+		query_split = query.split(" ")[1::]
+		extension = "".join(query_split)
+		webbrowser.open(f"{url}{extension}")
+
+
+
+
 if __name__ == '__main__':
 	
 #	wish_me()
@@ -62,14 +78,22 @@ if __name__ == '__main__':
 			speak("Bee Sixty-nine Four-twenty")
 			print("My friends call me B69420")
 
+		elif 'flask' in query:
+			flask_local(query)
+
 		elif 'search' in query or 'play' in query:
 			query = query.replace("search", "") 
 			query = query.replace("play", "")		 
 			webbrowser.open(query) 
 		
 		elif 'weather' in query:
-			speak("Opening accuweather")
-			webbrowser.open("accuweather.com")
+			webbrowser.open("https://www.accuweather.com/en/us/granby/01033/weather-forecast/2250736")
+
+		elif 'my github' in query:
+			webbrowser.open("https://github.com/jmrobinsonma")
+
+		elif 'my website' in query:
+			webbrowser.open("www.jmrobinson.online")
 
 		elif 'joke' in query:
 			joke = pyjokes.get_joke()
