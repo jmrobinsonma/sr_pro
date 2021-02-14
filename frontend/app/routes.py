@@ -47,15 +47,15 @@ def notes():
 	results = requests.get(DB_NOTE_URL)
 	return render_template('notes.html', results=json.loads(results.text), DB_NOTE_URL=DB_NOTE_URL)
 
-@app.route('/input', methods=['GET','POST'])
-def input():
+@app.route('/new', methods=['GET','POST'])
+def create_note():
 	form = NoteForm()
 	if request.method == 'POST':
 		if form.validate_on_submit():
 			new_note = dict(note=form.note.data)
 			post_entry(DB_NOTE_URL, new_note)
 			return redirect(url_for('notes'))
-	return render_template('input.html', legend='New Note',form=form, DB_NOTE_URL=DB_NOTE_URL)
+	return render_template('create_note.html', legend='New Note',form=form, DB_NOTE_URL=DB_NOTE_URL)
 
 @app.route('/notes/<int:id>', methods=['GET'])
 def note(id):
@@ -63,14 +63,14 @@ def note(id):
 	result = requests.get(new_url)
 	return render_template('note.html', note=request.form.get('note'), result=json.loads(result.text))
 
-@app.route('/notes/<int:id>/delete', methods=['GET','POST'])
+@app.route('/notes/delete/<int:id>', methods=['GET','POST'])
 def delete_note(id):
 	new_url = f"{DB_NOTE_URL}/{id}"
 	result = requests.get(new_url)
 	remove_note = requests.delete(new_url)
-	return render_template('delete.html', result=json.loads(result.text))
+	return redirect(url_for('notes'))
 
-@app.route("/notes/<int:id>/edit", methods=['GET', 'POST'])
+@app.route("/notes/edit/<int:id>", methods=['GET', 'POST'])
 def edit_note(id):
 	new_url = f"{DB_NOTE_URL}/{id}"
 	note = requests.get(new_url)
