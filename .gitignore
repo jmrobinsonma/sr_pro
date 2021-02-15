@@ -1,2 +1,6 @@
 venv
 __pycache__
+sr/sr_env
+backend/back_env
+frontend/front_env
+.env

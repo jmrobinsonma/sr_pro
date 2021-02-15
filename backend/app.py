@@ -10,12 +10,17 @@ ma = Marshmallow(app)
 api = Api(app)
 
 
-parser = reqparse.RequestParser()
-parser.add_argument('username')
-parser.add_argument('email')
-parser.add_argument('password')
-parser.add_argument('note')
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
+parser = reqparse.RequestParser()
+parser.add_argument('note')
+#parser.add_argument('username')
+#parser.add_argument('email')
+#parser.add_argument('password')
+
+"""
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(20), unique=True, nullable=False)
@@ -56,17 +61,11 @@ class UserResource(Resource):
 		db.session.commit()
 		return '', 204
 
-#	def put(self, post_id):
-#		args = parser.parse_args()
-#		note = Notes.query.get_or_404(post_id)
-#		note.note = args['note']
-#		db.session.commit()
-#		return note_schema.dump(note)
 
 api.add_resource(UsersResource, '/users')
 api.add_resource(UserResource, '/users/<int:post_id>')
 
-
+"""
 
 class Notes(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -125,4 +124,3 @@ api.add_resource(NoteResource, '/notes/<int:post_id>')
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port='5001')
-

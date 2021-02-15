@@ -21,6 +21,7 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 marshmallow==3.6.0
 pycparser==2.20
+python-dotenv==0.15.0
 pytz==2020.1
 requests==2.23.0
 six==1.15.0

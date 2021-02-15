@@ -1,0 +1,9 @@
+Setup PortAudio and PyAudio
+1. Install Alsa Library, this bins PyAudio and PortAudio : $ sudo apt-get install libasound-dev
+2. Download the latest stable version from http://www.portaudio.com/download.html
+3. Extract the archive to /usr/src/
+4. Execute the configure command and ensure that ALSA is set to 'yes': $ ./configure
+5. Run : $ make
+6. Run : $ make install
+7. Run : $ ldconfig
+8. Run : $ pip3 install pyaudio
